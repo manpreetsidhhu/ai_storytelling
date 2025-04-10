@@ -1,0 +1,20 @@
+{
+    "short_name": "MySeen",
+    "name": "MySeen",
+    "icons": [
+      {
+        "src": "",
+        "type": "",
+        "sizes": ""
+      },
+      {
+        "src": "",
+        "type": "",
+        "sizes": ""
+      }
+    ],
+    "start_url": "./",
+    "display": "standalone",
+    "theme_color": "#000000",
+    "background_color": "#ffffff"
+  }
