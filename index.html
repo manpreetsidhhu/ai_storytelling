@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>MYSEEN - AI Storytelling</title>
+    <link rel="stylesheet" href="styles.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <div class="container">
+      <header>
+          <h1>
+            <i class="fas fa-book"></i>
+            MYSEEN
+          </h1>
+        <p>AI Storytelling</p>
+        <div class="theme-toggle">
+          <i class="fas fa-moon"></i>
+        </div>
+      </header>
+
+      <main>
+        <div class="chat-container">
+          <div class="chat-messages" id="chat-messages">
+            <!-- Messages will be added here by JavaScript -->
+          </div>
+
+          <div class="story-options">
+            <button
+              class="story-option"
+              data-prompt="Tell me a story about a brave knight"
+            >
+              Knight
+            </button>
+            <button
+              class="story-option"
+              data-prompt="Tell me a story about a magical forest"
+            >
+              Forest
+            </button>
+            <button
+              class="story-option"
+              data-prompt="Tell me a story about a futuristic robot"
+            >
+              Robot
+            </button>
+            <button
+              class="story-option"
+              data-prompt="Tell me a story about a mysterious detective"
+            >
+              Detective
+            </button>
+            <button
+              class="story-option"
+              data-prompt="Tell me a story about a heroic animal"
+            >
+              Animal
+            </button>
+          </div>
+
+          <div class="input-container">
+            <div class="image-upload">
+              <label for="image-input">
+                <i class="fas fa-image"></i>
+              </label>
+              <input type="file" id="image-input" accept="image/*" />
+            </div>
+            <textarea
+              id="user-input"
+              placeholder="Ask for a story about..."
+              rows="2"
+            ></textarea>
+            <button id="send-btn"><i class="fas fa-paper-plane"></i></button>
+          </div>
+        </div>
+
+        <div class="settings-panel">
+          <h3>Story Settings</h3>
+          <div class="setting">
+            <label for="story-length">Story Length:</label>
+            <select id="story-length">
+              <option value="short">Short (1-2 paragraphs)</option>
+              <option value="medium" selected>Medium (3-5 paragraphs)</option>
+              <option value="long">Long (5+ paragraphs)</option>
+            </select>
+          </div>
+          <div class="setting">
+            <label for="story-style">Writing Style:</label>
+            <select id="story-style">
+              <option value="descriptive" selected>Descriptive</option>
+              <option value="conversational">Conversational</option>
+              <option value="poetic">Poetic</option>
+              <option value="humorous">Humorous</option>
+            </select>
+          </div>
+          <div class="setting">
+            <label for="story-tone">Tone:</label>
+            <select id="story-tone">
+              <option value="light">Light</option>
+              <option value="neutral" selected>Neutral</option>
+              <option value="dark">Dark</option>
+              <option value="whimsical">Whimsical</option>
+            </select>
+          </div>
+          <div class="setting">
+            <button id="clear-history" class="clear-btn">
+              Clear Chat History
+            </button>
+          </div>
+        </div>
+      </main>
+
+      <div class="loading-indicator" id="loading-indicator">
+        <div class="spinner"></div>
+        <p>Generating your story...</p>
+      </div>
+    </div>
+    
+    <div id="custom-alert" class="custom-alert hidden">
+      <div class="custom-alert-content">
+        <p>Are you sure you want to clear all chat history?</p>
+        <div class="custom-alert-buttons">
+          <button id="confirm-clear" class="confirm-btn">Yes</button>
+          <button id="cancel-clear" class="cancel-btn">No</button>
+        </div>
+      </div>
+    </div>
+    <script src="script.js"></script>
+  </body>
+</html>
