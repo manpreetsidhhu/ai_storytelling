@@ -3,18 +3,45 @@
     "name": "MySeen",
     "icons": [
       {
-        "src": "",
-        "type": "",
-        "sizes": ""
-      },
-      {
-        "src": "",
-        "type": "",
-        "sizes": ""
-      }
-    ],
-    "start_url": "./",
-    "display": "standalone",
-    "theme_color": "#000000",
-    "background_color": "#ffffff"
-  }
+        "src": "logo.PNG",
+        "sizes": "48x48",
+        "purpose": "maskable any",
+        "type": "image/png"
+    },
+    {
+        "src": "logo.PNG",
+        "sizes": "96x96",
+        "purpose": "maskable any",
+        "type": "image/png"
+    },
+    {
+      "src": "logo.PNG",
+      "sizes": "144x144",
+        "purpose": "maskable any",
+        "type": "image/png"
+    },
+    {
+      "src": "logo.PNG",
+      "sizes": "192x192",
+        "purpose": "maskable any",
+        "type": "image/png"
+    },
+    {
+      "src": "logo.PNG",
+      "sizes": "256x256",
+        "purpose": "maskable any",
+        "type": "image/png"
+    },
+    {
+      "src": "logo.PNG",
+      "sizes": "512x512",
+        "purpose": "maskable any",
+        "type": "image/png"
+    }
+],
+"scope": "/",
+"display": "standalone",
+"start_url": "/index.html",
+"theme_color": "#080b2c",
+"background_color": "#080b2c"
+}

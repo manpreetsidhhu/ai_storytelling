@@ -3,13 +3,10 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>MYSEEN - AI Storytelling</title>
+    <title>Myseen GPT - Storytelling</title>
+    <link rel="apple-touch-icon" href="logo.png">
+    <link rel="icon" href="logo.PNG" />
     <link rel="stylesheet" href="styles.css" />
-    <link rel="manifest" href="manifest.json" />
-    <meta name="theme-color" content="#ffffff" />
-    <meta name="apple-mobile-web-app-capable" content="yes" />
-    <meta name="apple-mobile-web-app-status-bar-style" content="default" />
-    
     <link
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
@@ -18,15 +15,18 @@
       href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
       rel="stylesheet"
     />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
   </head>
   <body>
+    <canvas id="bg-canvas"></canvas>
+
     <div class="container">
       <header>
-          <h1>
-            <i class="fas fa-book"></i>
-            MYSEEN
-          </h1>
-        <p>AI Storytelling</p>
+        <h1>
+          <i class="fas fa-book"></i>
+          MYSEEN
+        </h1>
+        <p>Your StoryDost</p>
         <div class="theme-toggle">
           <i class="fas fa-moon"></i>
         </div>
@@ -41,33 +41,30 @@
           <div class="story-options">
             <button
               class="story-option"
-              data-prompt="Tell me a story about a brave knight"
+              data-prompt="Tell me a fantasy adventure story"
             >
-              Knight
+              <i class="fas fa-dragon"></i> Fantasy
             </button>
             <button
               class="story-option"
-              data-prompt="Tell me a story about a magical forest"
+              data-prompt="Tell me a science fiction story"
             >
-              Forest
+              <i class="fas fa-rocket"></i> Sci-Fi
+            </button>
+            <button class="story-option" data-prompt="Tell me a mystery story">
+              <i class="fas fa-search"></i> Mystery
             </button>
             <button
               class="story-option"
-              data-prompt="Tell me a story about a futuristic robot"
+              data-prompt="Tell me a historical story"
             >
-              Robot
+              <i class="fas fa-landmark"></i> History
             </button>
             <button
               class="story-option"
-              data-prompt="Tell me a story about a mysterious detective"
+              data-prompt="Tell me a mythology story"
             >
-              Detective
-            </button>
-            <button
-              class="story-option"
-              data-prompt="Tell me a story about a heroic animal"
-            >
-              Animal
+              <i class="fas fa-book"></i> Mythology
             </button>
           </div>
 
@@ -116,6 +113,18 @@
             </select>
           </div>
           <div class="setting">
+            <div class="toggle-setting">
+              <label for="insights-toggle">Show Key Insights:</label>
+              <label class="switch">
+                <input type="checkbox" id="insights-toggle" checked />
+                <span class="slider round"></span>
+              </label>
+            </div>
+            <p class="setting-description">
+              Generate key learnings after each story
+            </p>
+          </div>
+          <div class="clear-btn-container">
             <button id="clear-history" class="clear-btn">
               Clear Chat History
             </button>
@@ -126,16 +135,6 @@
       <div class="loading-indicator" id="loading-indicator">
         <div class="spinner"></div>
         <p>Generating your story...</p>
-      </div>
-    </div>
-    
-    <div id="custom-alert" class="custom-alert hidden">
-      <div class="custom-alert-content">
-        <p>Are you sure you want to clear all chat history?</p>
-        <div class="custom-alert-buttons">
-          <button id="confirm-clear" class="confirm-btn">Yes</button>
-          <button id="cancel-clear" class="cancel-btn">No</button>
-        </div>
       </div>
     </div>
     <script src="script.js"></script>

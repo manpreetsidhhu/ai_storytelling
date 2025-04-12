@@ -1,5 +1,4 @@
 document.addEventListener("DOMContentLoaded", () => {
-  // DOM Elements
   const chatMessages = document.getElementById("chat-messages");
   const userInput = document.getElementById("user-input");
   const sendButton = document.getElementById("send-btn");
@@ -9,15 +8,12 @@ document.addEventListener("DOMContentLoaded", () => {
   const loadingIndicator = document.getElementById("loading-indicator");
   const clearHistoryButton = document.getElementById("clear-history");
 
-  // Gemini API key
   const API_KEY = "AIzaSyBCqsf4uJ55nlw1_j6gvzYVkFb2Fgx_iG4";
   const API_URL =
     "https://generativelanguage.googleapis.com/v1/models/gemini-1.5-flash:generateContent";
 
-  // Initialize chat history from localStorage or create new
   let chatHistory = JSON.parse(localStorage.getItem("chatHistory")) || [];
 
-  // Render existing chat history if available
   if (chatHistory.length > 0) {
     chatHistory.forEach((message) => {
       if (message.role === "user") {
@@ -28,7 +24,6 @@ document.addEventListener("DOMContentLoaded", () => {
     });
     scrollToBottom();
   } else {
-    // Add welcome message if no history
     const welcomeMessage =
       "Hello! I'm your AI storytelling companion. I can tell you stories about anything you imagine. What would you like to hear about today?";
     addBotMessage(welcomeMessage);
@@ -43,7 +38,6 @@ document.addEventListener("DOMContentLoaded", () => {
     saveHistory();
   }
 
-  // Theme toggle functionality
   themeToggle.addEventListener("click", () => {
     document.body.classList.toggle("light-theme");
     const icon = themeToggle.querySelector("i");
@@ -56,21 +50,18 @@ document.addEventListener("DOMContentLoaded", () => {
       icon.classList.add("fa-moon");
     }
 
-    // Save theme preference
     localStorage.setItem(
       "theme",
       document.body.classList.contains("light-theme") ? "light" : "dark"
     );
   });
 
-  // Check for saved theme preference
   if (localStorage.getItem("theme") === "light") {
     document.body.classList.add("light-theme");
     themeToggle.querySelector("i").classList.remove("fa-moon");
     themeToggle.querySelector("i").classList.add("fa-sun");
   }
 
-  // Story options click handlers
   storyOptions.forEach((option) => {
     option.addEventListener("click", () => {
       const prompt = option.getAttribute("data-prompt");
@@ -79,27 +70,22 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   });
 
-  // Image input handler
   let selectedImage = null;
   imageInput.addEventListener("change", (e) => {
     const file = e.target.files[0];
     if (file && file.type.startsWith("image/")) {
       selectedImage = file;
-      // Show preview or indicator that an image is selected
       const label = imageInput.previousElementSibling;
       label.style.backgroundColor = "var(--secondary-color)";
     }
   });
 
-  // Send message handler
   function handleSendMessage() {
     const message = userInput.value.trim();
     if (!message) return;
 
-    // Add user message to chat
     addUserMessage(message);
 
-    // Save to history
     const timestamp = new Date().toLocaleTimeString([], {
       hour: "2-digit",
       minute: "2-digit",
@@ -111,13 +97,10 @@ document.addEventListener("DOMContentLoaded", () => {
     });
     saveHistory();
 
-    // Clear input
     userInput.value = "";
 
-    // Generate response
     generateResponse(message, selectedImage);
 
-    // Reset image selection
     if (selectedImage) {
       selectedImage = null;
       const label = imageInput.previousElementSibling;
@@ -126,10 +109,8 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   }
 
-  // Send button click handler
   sendButton.addEventListener("click", handleSendMessage);
 
-  // Enter key handler
   userInput.addEventListener("keypress", (e) => {
     if (e.key === "Enter" && !e.shiftKey) {
       e.preventDefault();
@@ -137,33 +118,27 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   });
 
-  // Function to show the custom alert
   function showCustomAlert() {
     const customAlert = document.getElementById("custom-alert");
     customAlert.classList.remove("hidden");
   }
 
-  // Function to hide the custom alert
   function hideCustomAlert() {
     const customAlert = document.getElementById("custom-alert");
     customAlert.classList.add("hidden");
   }
 
-  // Clear history button handler
   clearHistoryButton.addEventListener("click", () => {
     showCustomAlert();
 
-    // Handle confirmation
     const confirmButton = document.getElementById("confirm-clear");
     const cancelButton = document.getElementById("cancel-clear");
 
     confirmButton.onclick = () => {
-      // Clear chat history
       chatMessages.innerHTML = "";
       chatHistory = [];
       localStorage.removeItem("chatHistory");
 
-      // Add welcome message
       const welcomeMessage =
         "Chat history cleared. What story would you like to hear now?";
       addBotMessage(welcomeMessage);
@@ -185,17 +160,14 @@ document.addEventListener("DOMContentLoaded", () => {
     };
   });
 
-  // Function to generate response using Gemini API
   async function generateResponse(userPrompt, imageFile = null) {
     showLoading();
 
     try {
-      // Get story settings
       const storyLength = document.getElementById("story-length").value;
       const storyStyle = document.getElementById("story-style").value;
       const storyTone = document.getElementById("story-tone").value;
 
-      // Create enhanced prompt for storytelling
       const lengthGuide = {
         short:
           "Create a concise story in 1-2 short paragraphs (approximately 60-120 words)",
@@ -242,7 +214,6 @@ Additional guidelines:
 
 Please generate a story about: ${userPrompt}`;
 
-      // Prepare request body
       let requestBody = {
         contents: [
           {
@@ -258,7 +229,6 @@ Please generate a story about: ${userPrompt}`;
         },
       };
 
-      // Add image to request if provided
       if (imageFile) {
         const base64Image = await fileToBase64(imageFile);
         requestBody.contents[0].parts.push({
@@ -269,7 +239,6 @@ Please generate a story about: ${userPrompt}`;
         });
       }
 
-      // Call Gemini API
       const response = await fetch(`${API_URL}?key=${API_KEY}`, {
         method: "POST",
         headers: {
@@ -284,19 +253,16 @@ Please generate a story about: ${userPrompt}`;
         throw new Error(data.error?.message || "Failed to generate story");
       }
 
-      // Extract the story from response
       const story =
         data.candidates?.[0]?.content?.parts?.[0]?.text ||
         "I'm sorry, I couldn't generate a story at this time. Please try again with a different prompt.";
 
-      // Add bot message to chat
       const timestamp = new Date().toLocaleTimeString([], {
         hour: "2-digit",
         minute: "2-digit",
       });
       addBotMessage(story, timestamp);
 
-      // Save to history
       chatHistory.push({
         role: "bot",
         content: story,
@@ -309,7 +275,6 @@ Please generate a story about: ${userPrompt}`;
         "I apologize, but I encountered an error while creating your story. Please try again with a different prompt.";
       addBotMessage(errorMessage);
 
-      // Save error message to history
       chatHistory.push({
         role: "bot",
         content: errorMessage,
@@ -325,7 +290,6 @@ Please generate a story about: ${userPrompt}`;
     }
   }
 
-  // Function to convert file to base64
   function fileToBase64(file) {
     return new Promise((resolve, reject) => {
       const reader = new FileReader();
@@ -335,17 +299,14 @@ Please generate a story about: ${userPrompt}`;
     });
   }
 
-  // Function to show loading indicator
   function showLoading() {
     loadingIndicator.classList.add("visible");
   }
 
-  // Function to hide loading indicator
   function hideLoading() {
     loadingIndicator.classList.remove("visible");
   }
 
-  // Function to add user message to chat
   function addUserMessage(message, time = null) {
     const timestamp =
       time ||
@@ -360,7 +321,6 @@ Please generate a story about: ${userPrompt}`;
     scrollToBottom();
   }
 
-  // Function to add bot message to chat
   function addBotMessage(message, time = null) {
     const timestamp =
       time ||
@@ -375,12 +335,10 @@ Please generate a story about: ${userPrompt}`;
     scrollToBottom();
   }
 
-  // Function to save chat history to localStorage
   function saveHistory() {
     localStorage.setItem("chatHistory", JSON.stringify(chatHistory));
   }
 
-  // Function to scroll chat to bottom
   function scrollToBottom() {
     chatMessages.scrollTop = chatMessages.scrollHeight;
   }
