@@ -8,7 +8,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const loadingIndicator = document.getElementById("loading-indicator");
   const clearHistoryButton = document.getElementById("clear-history");
 
-  const API_KEY = "AIzaSyBCqsf4uJ55nlw1_j6gvzYVkFb2Fgx_iG4";
+  const API_KEY = "";
   const API_URL =
     "https://generativelanguage.googleapis.com/v1/models/gemini-1.5-flash:generateContent";
 
